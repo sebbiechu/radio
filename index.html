@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Superdrug Hybrid Radio</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      font-family: sans-serif;
+    }
+
+    #radio-player {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 9999;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    #radio-player button {
+      background: #1db954;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin-left: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    #radio-player p {
+      margin: 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="radio-player">
+    <p>Superdrug Hybrid Radio</p>
+    <button onclick="playRadio()">▶ Play</button>
+  </div>
+
+  <script>
+    let radio;
+
+    function playRadio() {
+      if (!radio) {
+        radio = new Audio("http://icecast.kvh.media/Superdrug-Hybrid");
+        radio.volume = 0.3; // Set volume (0.0 to 1.0)
+        radio.loop = true;
+      }
+
+      radio.play().then(() => {
+        document.querySelector("#radio-player button").textContent = "🔊 Playing";
+      }).catch(err => {
+        alert("Playback blocked: " + err.message);
+        console.error(err);
+      });
+    }
+  </script>
+</body>
+</html>
